@@ -6,7 +6,7 @@ using System.Web;
 
 namespace EmailSender
 {
-    public class AddressValidator
+    public class AddressValidator : IAddressValidator
     {
         public bool IsValideAddress(string address)
         {

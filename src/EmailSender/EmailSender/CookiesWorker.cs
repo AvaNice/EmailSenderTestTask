@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EmailSender
 {
-    public class CookiesWorker
+    public class CookiesWorker : ICookiesWorker
     {
         private const int COOKIE_SAVE_DAYS = 300;
         private readonly HttpRequest _request;
@@ -28,14 +28,14 @@ namespace EmailSender
                 return string.Empty;
             }
 
-            return result; 
+            return result;
         }
 
-        public HttpCookie CreateCookie(string name, string value)
+        public HttpCookie CreateCookie(string name, string value, int saveDays = COOKIE_SAVE_DAYS)
         {
             HttpCookie cookie = new HttpCookie(name)
             {
-                Expires = DateTime.UtcNow.AddDays(COOKIE_SAVE_DAYS),
+                Expires = DateTime.UtcNow.AddDays(saveDays),
                 Value = value
             };
 

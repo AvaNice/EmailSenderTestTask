@@ -9,8 +9,8 @@ namespace EmailSender
 {
     public partial class SendControl : System.Web.UI.UserControl
     {
-        private readonly AddressValidator _validator = new AddressValidator();
-        private CookiesWorker _cookiesWorker;
+        private readonly IAddressValidator _validator = new AddressValidator();
+        private ICookiesWorker _cookiesWorker;
 
         protected void Page_Load(object sender, EventArgs e)
         {
