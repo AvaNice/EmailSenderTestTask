@@ -21,20 +21,31 @@ namespace EmailSender
             SendButton.Text = Resource.SendButton;
             InvalidAddressLabel.Text = Resource.InvalidAddress;
 
-            //AddressTextBox.Text = _cookiesWorker.GetByName("Address");
-            //MessageTextBox.Text = _cookiesWorker.GetByName("Message");
-            
+
+            var addressCoocieValue = _cookiesWorker.GetByName("Address");
+            var messageCoocieValue = _cookiesWorker.GetByName("Message");
+
+
+            if (AddressTextBox.Text == string.Empty)
+            {
+                AddressTextBox.Text = addressCoocieValue;
+            }
+
+            if (MessageTextBox.Text == string.Empty)
+            {
+                MessageTextBox.Text = messageCoocieValue;
+            }
         }
 
         protected void SendButton_Click(object sender, EventArgs e)
         {
             InvalidAddressLabel.Visible = false;
 
+            Response.Cookies.Add(_cookiesWorker.CreateCookie("Address", AddressTextBox.Text));
+            Response.Cookies.Add(_cookiesWorker.CreateCookie("Message", MessageTextBox.Text));
+
             if (_validator.IsValideAddress(AddressTextBox.Text))
             {
-                Response.Cookies.Add(_cookiesWorker.CreateCookie("Address", AddressTextBox.Text));
-                Response.Cookies.Add(_cookiesWorker.CreateCookie("Message", MessageTextBox.Text));
-
                 Response.Redirect("/ShippingNotice.aspx");
             }
             else
@@ -43,12 +54,14 @@ namespace EmailSender
             }
         }
 
-        private void Page_FormClosing(Object sender, EventArgs e)
+        protected void MessageTextBox_TextChanged(object sender, EventArgs e)
         {
+            Response.Cookies.Add(_cookiesWorker.CreateCookie("Message", MessageTextBox.Text));
+        }
 
-            int a = 5;
-            a++;
-            a++;
+        protected void AddressTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Response.Cookies.Add(_cookiesWorker.CreateCookie("Address", AddressTextBox.Text));
         }
     }
 }

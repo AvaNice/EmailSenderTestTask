@@ -11,7 +11,7 @@ namespace EmailSender
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           // TitleLabel.Text = Resource.Address;
+
         }
     }
 }

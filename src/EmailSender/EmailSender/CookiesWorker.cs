@@ -23,8 +23,7 @@ namespace EmailSender
             {
                 result = _request.Cookies[name].Value;
             }
-
-            if(result != null)
+            if (result == null)
             {
                 return string.Empty;
             }
@@ -34,10 +33,11 @@ namespace EmailSender
 
         public HttpCookie CreateCookie(string name, string value)
         {
-            HttpCookie cookie = new HttpCookie(name);
-
-            cookie.Expires = DateTime.UtcNow.AddDays(COOKIE_SAVE_DAYS);
-            cookie.Value = value;
+            HttpCookie cookie = new HttpCookie(name)
+            {
+                Expires = DateTime.UtcNow.AddDays(COOKIE_SAVE_DAYS),
+                Value = value
+            };
 
             return cookie;
         }
